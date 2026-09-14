@@ -63,10 +63,12 @@
   .btn.copied{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-soft-ink);}
   .btn.small{padding:5px 10px;font-size:12px;}
 
-  .img-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
-  .img-chip{border:1px solid var(--edge);border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:8px;align-items:center;width:200px;}
-  .img-chip a{display:block;width:184px;height:184px;border-radius:7px;overflow:hidden;background:var(--surface-2);}
+  .img-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;}
+  .img-chip{border:1px solid var(--edge);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:10px;align-items:stretch;width:100%;max-width:420px;}
+  .img-chip a{display:block;width:100%;height:320px;border-radius:8px;overflow:hidden;background:var(--surface-2);}
   .img-chip img{width:100%;height:100%;object-fit:contain;cursor:zoom-in;}
+  .img-actions{display:flex;gap:8px;}
+  .img-actions .btn{flex:1;}
 
   .choice-note{background:var(--amber-soft);color:var(--amber);border-radius:9px;padding:10px 13px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
 
@@ -193,6 +195,26 @@ async function copyImage(src, btn){
   }
 }
 
+async function downloadImage(src, name, btn){
+  try{
+    const res = await fetch(src);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${COMPANY.name || 'company'}-${name}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    const orig = btn.textContent;
+    btn.textContent = '다운로드됨 ✓';
+    setTimeout(() => { btn.textContent = orig; }, 1600);
+  } catch(e){
+    alert('다운로드에 실패했어요. 이미지를 길게 눌러(또는 우클릭) "이미지 저장"을 이용해주세요.');
+  }
+}
+
 function markCopied(btn, card){
   const orig = btn.textContent;
   btn.textContent = '복사됨 ✓';
@@ -225,7 +247,7 @@ function render(){
         <div class="btnrow">
           <button class="btn primary" data-act="copy-rich" data-key="${def.key}" ${hasContent?'':'disabled'}>서식 그대로 복사</button>
         </div>
-        ${images.length ? `<div class="img-row">${images.map((im,i)=>`<div class="img-chip"><a href="${im.url}" target="_blank" rel="noopener"><img src="${im.url}"></a><button class="btn small" data-act="copy-image" data-src="${im.url}">이미지 복사</button></div>`).join('')}</div>` : ''}
+        ${images.length ? `<div class="img-row">${images.map((im,i)=>`<div class="img-chip"><a href="${im.url}" target="_blank" rel="noopener"><img src="${im.url}"></a><div class="img-actions"><button class="btn" data-act="copy-image" data-src="${im.url}">이미지 복사</button><button class="btn" data-act="download-image" data-src="${im.url}" data-name="${esc(def.key)}">다운로드</button></div></div>`).join('')}</div>` : ''}
       </div>`;
     } else if(def.type === 'text'){
       const val = COMPANY[def.key] || '';
@@ -270,6 +292,9 @@ function render(){
   });
   container.querySelectorAll('[data-act="copy-image"]').forEach(btn => {
     btn.addEventListener('click', () => copyImage(btn.dataset.src, btn));
+  });
+  container.querySelectorAll('[data-act="download-image"]').forEach(btn => {
+    btn.addEventListener('click', () => downloadImage(btn.dataset.src, btn.dataset.name, btn));
   });
 }
 
