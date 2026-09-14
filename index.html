@@ -1,0 +1,305 @@
+<title>제안서 붙여넣기 자료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F5; --surface:#FFFFFF; --surface-2:#EAEEF0; --edge:#DCE2E6;
+    --ink:#15213A; --ink-soft:#51617A; --muted:#8B96A6;
+    --accent:#0F7A6C; --accent-ink:#FFFFFF; --accent-soft:#DDEFEA; --accent-soft-ink:#0B5347;
+    --amber:#9B6B0C; --amber-soft:#F5E7C8;
+    --shadow:0 1px 2px rgba(21,33,58,.06), 0 10px 28px rgba(21,33,58,.07);
+    --radius:14px;
+    --font-kr:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E141C; --surface:#161F2A; --surface-2:#1C2632; --edge:#2A3542;
+      --ink:#E8ECF2; --ink-soft:#AEB9C9; --muted:#78859A;
+      --accent:#35B79E; --accent-ink:#05201A; --accent-soft:#173430; --accent-soft-ink:#7FE1CB;
+      --amber:#DDA83F; --amber-soft:#3A2E12;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E141C; --surface:#161F2A; --surface-2:#1C2632; --edge:#2A3542;
+    --ink:#E8ECF2; --ink-soft:#AEB9C9; --muted:#78859A;
+    --accent:#35B79E; --accent-ink:#05201A; --accent-soft:#173430; --accent-soft-ink:#7FE1CB;
+    --amber:#DDA83F; --amber-soft:#3A2E12;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-kr);margin:0;padding-block:28px;line-height:1.6;}
+  h1,h2{text-wrap:balance;margin:0;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px;display:flex;flex-direction:column;gap:16px;}
+
+  .sample-banner{background:var(--amber-soft);color:var(--amber);border-radius:10px;padding:9px 14px;font-size:12.5px;font-weight:600;text-align:center;}
+
+  .header{background:var(--surface);border:1px solid var(--edge);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 24px 22px;}
+  .header .eyebrow{font-size:12px;font-weight:600;color:var(--accent-soft-ink);background:var(--accent-soft);display:inline-block;padding:3px 10px;border-radius:99px;margin-bottom:10px;}
+  .header h1{font-size:22px;}
+  .header p{color:var(--ink-soft);font-size:13.5px;margin:10px 0 0;}
+
+  .card{background:var(--surface);border:1px solid var(--edge);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;transition:border-color .15s;}
+  .card.done{border-color:var(--accent);}
+  .card .row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;}
+  .card .label{font-weight:700;font-size:14.5px;}
+  .card .badge-done{font-size:11px;font-weight:700;color:var(--accent-soft-ink);background:var(--accent-soft);padding:2px 9px;border-radius:99px;opacity:0;transition:opacity .15s;white-space:nowrap;}
+  .card.done .badge-done{opacity:1;}
+
+  .content{font-size:14px;color:var(--ink);white-space:pre-wrap;}
+  .content.rich :is(h1,h2,h3,h4){font-size:15.5px;margin:10px 0 4px;}
+  .content.rich p{margin:0 0 8px;}
+  .content.rich ul,.content.rich ol{margin:0 0 8px;padding-left:22px;}
+  .content.rich img{max-width:100%;border-radius:8px;display:block;margin:8px 0;}
+  .content.empty{color:var(--muted);font-style:italic;}
+
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--edge);background:var(--surface-2);color:var(--ink);border-radius:9px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+  .btn.primary:hover{filter:brightness(1.06);}
+  .btn:hover{border-color:var(--muted);}
+  .btn.copied{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-soft-ink);}
+  .btn.small{padding:5px 10px;font-size:12px;}
+
+  .img-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .img-chip{border:1px solid var(--edge);border-radius:9px;padding:6px;display:flex;flex-direction:column;gap:6px;align-items:center;width:96px;}
+  .img-chip img{width:80px;height:60px;object-fit:cover;border-radius:6px;}
+
+  .choice-note{background:var(--amber-soft);color:var(--amber);border-radius:9px;padding:10px 13px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+
+  .section-divider{font-size:12.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:6px 4px -2px;}
+
+  .footer-note{text-align:center;font-size:12px;color:var(--muted);padding:10px 6px 0;}
+
+  .notfound{background:var(--surface);border:1px solid var(--edge);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 24px;text-align:center;}
+  .notfound .big{font-size:30px;margin-bottom:6px;}
+  .notfound p{color:var(--ink-soft);font-size:13.5px;margin:8px 0 0;}
+
+  @media (max-width:480px){
+    .card{padding:15px 15px;}
+    .header{padding:20px 18px;}
+  }
+</style>
+
+<div class="wrap">
+  <div class="sample-banner" id="sampleBanner">🔎 예시 페이지입니다 — 실제 기업 데이터가 아닙니다</div>
+  <div class="header">
+    <span class="eyebrow">제안서 붙여넣기 자료</span>
+    <h1 id="companyName"></h1>
+    <p>아래 항목을 순서대로 <b>복사</b>해서, 사업계획서 작성 화면의 같은 번호 질문에 붙여넣어 주세요. 서식과 이미지도 함께 복사돼요.</p>
+  </div>
+  <div id="fields"></div>
+  <div class="footer-note">이 페이지는 사업계획서 작성을 돕기 위한 임시 자료이며, 제출 화면이 아닙니다.</div>
+</div>
+
+<script>
+const FIELD_DEFS = [
+  { key:'q1', type:'text', label:'Q1. 나의 아이디어를 한 줄로 소개해주세요.' },
+  { key:'q2', type:'rich', label:'Q2. 아이디어를 떠올린 배경 이야기', allowImages:true },
+  { key:'sec3', type:'section', label:'Q3. 어떤 아이디어인가요' },
+  { key:'q3_1', type:'rich', label:'Q3-1. 기존 제품·서비스 대비 개선점 / 해결할 수 있는 문제', allowImages:true },
+  { key:'q3_2', type:'rich', label:'Q3-2. 어떻게 수익을 창출할 계획인가요', allowImages:true },
+  { key:'sec4', type:'section', label:'Q4. 어떻게 실현하고 싶으신가요' },
+  { key:'q4_1', type:'rich', label:'Q4-1. 아이디어를 어떻게 사업화하실 계획이신가요', allowImages:true },
+  { key:'q4_2', type:'rich', label:'Q4-2. 멘토링을 통해 어떤 도움을 받고 싶은가요', allowImages:true },
+  { key:'q5', type:'url', label:'Q5. 아이디어를 소개하는 영상 링크' },
+  { key:'q6', type:'choice', label:'Q6. 사업 분야' },
+  { key:'q7', type:'choice', label:'Q7. 지원자의 현재 창업 여부' },
+  { key:'q7_1', type:'text', label:'Q7-1. 현재 사업 아이템과 이번 도전 아이디어의 차이점', showIf:{field:'q7', equals:'기창업자'} },
+  { key:'q8', type:'text', label:'Q8. 아이디어를 사업화 시킬 수 있는 본인의 역량' },
+  { key:'q9', type:'choice', label:'Q9. 함께하는 팀원 수' },
+  { key:'q10', type:'text', label:'Q10. 사업담당자에게 자유롭게 전하고 싶은 이야기' },
+];
+
+// ---- 예시 데이터: 주소에 ?c=기업ID 가 없을 때만 보여주는 기본 화면 ----
+let IS_SAMPLE = true;
+let COMPANY = null;
+const SAMPLE_COMPANY = {
+  name: '모먼트페일 (예시)',
+  q1: '퇴근 후 30분, 혼자서도 부담 없이 즐기는 홈베이킹 밀키트 "모먼트페일"',
+  q2Html: '<p>주말에만 빵을 굽던 취미가 계기가 됐습니다. 평일엔 시간이 없어 포기하는 사람이 많다는 걸 알고, <b>계량과 정리를 생략한 1인분 밀키트</b>를 구상하게 됐어요. 아래는 실제 시제품 사진입니다.</p>',
+  q2Images: [ { url: sampleImageDataUri('#0F7A6C','시제품 사진') } ],
+  q3_1Html: '<p>기존 베이킹 키트는 4인분 기준이라 <b>1인 가구에는 양이 많고 가격 부담</b>이 컸습니다. 모먼트페일은 1회분 소분 포장과 세척 없는 종이 트레이로 이 문제를 해결합니다.</p>',
+  q3_2Html: '<p>월 구독형 정기배송(4종 x 4주)을 기본으로 하고, 시즌 한정판을 별도 판매해 객단가를 높일 계획입니다.</p>',
+  q4_1Html: '<p>3개월 내 스모크 테스트로 100세트 선주문을 받고, 반응이 검증되면 공유주방과 계약해 자체 생산 라인을 구축할 계획입니다.</p>',
+  q4_1Images: [ { url: sampleImageDataUri('#9B6B0C','2026 로드맵') } ],
+  q4_2Html: '<p>식품 소분 포장 관련 인허가 절차와, 초기 구독 서비스의 이탈률을 낮추는 방법에 대한 조언을 받고 싶습니다.</p>',
+  q5: 'https://youtu.be/example',
+  q6: 'F&B・외식',
+  q7: '기창업자',
+  q7_1: '현재는 오프라인 베이킹 클래스를 운영 중이며, 이번 아이디어는 제품(밀키트) 기반의 온라인 유통 사업으로 고객 접점과 수익 구조가 전혀 다릅니다.',
+  q8: '10년 차 파티시에로 백화점 베이커리 팀장 경력이 있으며, 개인 베이킹 클래스를 2년째 운영하고 있습니다.',
+  q9: '팀원 없음',
+  q10: '지역 소상공인과 협업해 포장재를 친환경 소재로 전환하는 데 관심이 많습니다.'
+};
+
+function sampleImageDataUri(color, text){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300"><rect width="480" height="300" fill="${color}"/><text x="240" y="160" font-family="sans-serif" font-size="34" fill="white" text-anchor="middle">${text}</text></svg>`;
+  return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+}
+
+function esc(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function copyRichHtml(html, plain, btn, card){
+  try{
+    if(window.ClipboardItem){
+      const item = new ClipboardItem({
+        'text/html': new Blob([html], {type:'text/html'}),
+        'text/plain': new Blob([plain], {type:'text/plain'})
+      });
+      await navigator.clipboard.write([item]);
+    } else {
+      await navigator.clipboard.writeText(plain);
+    }
+    markCopied(btn, card);
+  } catch(e){
+    try{ await navigator.clipboard.writeText(plain); markCopied(btn, card); }
+    catch(e2){ alert('복사에 실패했어요. 직접 드래그해서 복사해주세요.'); }
+  }
+}
+
+async function copyPlain(text, btn, card){
+  try{ await navigator.clipboard.writeText(text); markCopied(btn, card); }
+  catch(e){ alert('복사에 실패했어요. 직접 드래그해서 복사해주세요.'); }
+}
+
+async function copyImage(src, btn){
+  try{
+    const res = await fetch(src);
+    let blob = await res.blob();
+    if(blob.type !== 'image/png'){
+      blob = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+          canvas.getContext('2d').drawImage(img, 0, 0);
+          canvas.toBlob(b => b ? resolve(b) : reject(new Error('변환 실패')), 'image/png');
+        };
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+    await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    const orig = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
+  } catch(e){
+    alert('이미지 복사에 실패했어요. 이미지를 길게 눌러(또는 우클릭) 직접 복사해주세요.');
+  }
+}
+
+function markCopied(btn, card){
+  const orig = btn.textContent;
+  btn.textContent = '복사됨 ✓';
+  btn.classList.add('copied');
+  card.classList.add('done');
+  setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
+}
+
+function render(){
+  document.getElementById('companyName').textContent = COMPANY.name;
+  document.getElementById('sampleBanner').style.display = IS_SAMPLE ? '' : 'none';
+  const container = document.getElementById('fields');
+  let html = '';
+
+  FIELD_DEFS.forEach(def => {
+    if(def.type === 'section'){
+      html += `<div class="section-divider">${esc(def.label)}</div>`;
+      return;
+    }
+    if(def.showIf && COMPANY[def.showIf.field] !== def.showIf.equals) return;
+
+    if(def.type === 'rich'){
+      const raw = COMPANY[def.key+'Html'] || '';
+      const plain = (() => { const d=document.createElement('div'); d.innerHTML=raw; return d.innerText || ''; })();
+      const hasContent = plain.trim().length > 0;
+      const images = def.allowImages ? (COMPANY[def.key+'Images'] || []) : [];
+      html += `<div class="card" data-key="${def.key}">
+        <div class="row"><div class="label">${esc(def.label)}</div><span class="badge-done">복사 완료</span></div>
+        <div class="content rich ${hasContent?'':'empty'}">${hasContent ? raw : '(내용 없음)'}</div>
+        <div class="btnrow">
+          <button class="btn primary" data-act="copy-rich" data-key="${def.key}" ${hasContent?'':'disabled'}>서식 그대로 복사</button>
+        </div>
+        ${images.length ? `<div class="img-row">${images.map((im,i)=>`<div class="img-chip"><img src="${im.url}"><button class="btn small" data-act="copy-image" data-src="${im.url}">이미지 복사</button></div>`).join('')}</div>` : ''}
+      </div>`;
+    } else if(def.type === 'text'){
+      const val = COMPANY[def.key] || '';
+      html += `<div class="card" data-key="${def.key}">
+        <div class="row"><div class="label">${esc(def.label)}</div><span class="badge-done">복사 완료</span></div>
+        <div class="content ${val?'':'empty'}">${esc(val || '(내용 없음)')}</div>
+        <div class="btnrow"><button class="btn primary" data-act="copy-plain" data-key="${def.key}" ${val?'':'disabled'}>복사</button></div>
+      </div>`;
+    } else if(def.type === 'url'){
+      const val = COMPANY[def.key] || '';
+      if(!val) return;
+      html += `<div class="card" data-key="${def.key}">
+        <div class="row"><div class="label">${esc(def.label)}</div><span class="badge-done">복사 완료</span></div>
+        <div class="content" style="font-family:var(--font-mono);font-size:13px;">${esc(val)}</div>
+        <div class="btnrow"><button class="btn primary" data-act="copy-plain" data-key="${def.key}">링크 복사</button></div>
+      </div>`;
+    } else if(def.type === 'choice'){
+      const val = COMPANY[def.key] || '';
+      if(!val) return;
+      html += `<div class="card" data-key="${def.key}">
+        <div class="row"><div class="label">${esc(def.label)}</div><span class="badge-done">복사 완료</span></div>
+        <div class="choice-note"><span>직접 선택 — 이 값으로 골라주세요: <b>${esc(val)}</b></span>
+        <button class="btn small" data-act="copy-plain" data-key="${def.key}">값 복사</button></div>
+      </div>`;
+    }
+    html += '';
+  });
+
+  container.innerHTML = html;
+
+  container.querySelectorAll('[data-act="copy-rich"]').forEach(btn => {
+    const key = btn.dataset.key;
+    const card = btn.closest('.card');
+    const raw = COMPANY[key+'Html'] || '';
+    const d = document.createElement('div'); d.innerHTML = raw;
+    btn.addEventListener('click', () => copyRichHtml(raw, d.innerText || '', btn, card));
+  });
+  container.querySelectorAll('[data-act="copy-plain"]').forEach(btn => {
+    const key = btn.dataset.key;
+    const card = btn.closest('.card');
+    btn.addEventListener('click', () => copyPlain(COMPANY[key] || '', btn, card));
+  });
+  container.querySelectorAll('[data-act="copy-image"]').forEach(btn => {
+    btn.addEventListener('click', () => copyImage(btn.dataset.src, btn));
+  });
+}
+
+function renderNotFound(){
+  document.getElementById('sampleBanner').style.display = 'none';
+  document.querySelector('.header').style.display = 'none';
+  document.getElementById('fields').innerHTML = `<div class="notfound">
+    <div class="big">🔍</div>
+    <h2>자료를 찾을 수 없어요</h2>
+    <p>전달받은 링크 주소가 정확한지 다시 확인해주세요.</p>
+  </div>`;
+}
+
+async function boot(){
+  const c = new URLSearchParams(location.search).get('c');
+  if(!c){
+    COMPANY = SAMPLE_COMPANY;
+    IS_SAMPLE = true;
+    render();
+    return;
+  }
+  try{
+    const res = await fetch('data/' + encodeURIComponent(c) + '.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('not found');
+    COMPANY = await res.json();
+    IS_SAMPLE = false;
+    render();
+  } catch(e){
+    renderNotFound();
+  }
+}
+
+boot();
+</script>
